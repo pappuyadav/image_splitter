@@ -22,7 +22,7 @@ def image_splitter(filename, dir_in, dir_out, d):
     name, ext = os.path.splitext(filename)
     img = Image.open(os.path.join(dir_in, fp))
     w, h = img.size
-    
+    image_num=1 
     grid = list(product(range(0, h-h%d, d), range(0, w-w%d, d)))
     for i, j in grid:
         box = (j, i, j+d, i+d)
@@ -32,12 +32,12 @@ def image_splitter(filename, dir_in, dir_out, d):
         name = os.path.splitext(name)[0]
         save_to= os.path.join(savedir, name+"_{:03}.tif")
         crop.save(save_to.format(image_num))
+        image_num += 1
         
 
-image_num=1        
+       
 for fp in filelist:
     image_splitter(fp,dir_in,dir_out,d)
-    image_num += 1
-    
+  
 print("Splitting completed!")
     
